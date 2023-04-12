@@ -27,6 +27,7 @@ def global_aggregate(server, clients):
 
 def evaluate(server, test_loader, device=None):
     server.eval()
+    server.to(device)
     loss, corrects = 0, 0
     with torch.no_grad():
         for idx, (data, label) in enumerate(test_loader):
