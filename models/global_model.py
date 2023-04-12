@@ -27,6 +27,6 @@ class GlobalModel(torch.nn.Module):
         data = self.fc1(data)
         data = F.relu(data)
         data = self.fc2(data)
-        out = F.log_softmax(x, dim=1)
+        out = F.log_softmax(data, dim=1)
 
         return out
