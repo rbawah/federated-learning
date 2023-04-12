@@ -10,6 +10,8 @@ def main():
     import numpy as np
     from tqdm import tqdm
 
+    from models.global_model import GlobalModel
+
     device = torch.device('cuda:0' if torch.cuda.is_available else 'cpu')
 
     print(f'Device: {device}')
@@ -31,6 +33,19 @@ def main():
     train_split = random_split(train_set, [int(train_set.data.shape[0]/num_clients) for i in range(num_clients)])
     train_loader = [DataLoader(data, batch_size=batch_size, shuffle=True) for data in train_split]
     test_loader = [DataLoader(test_set, batch_size=batch_size, shuffle=True)]
+
+    server = GlobalModel().to(device)
+    clients = [GlobalModel().to(device) for i in range(clients_selected)]
+
+    for model in clients:
+        model.load_state_dict(server.state_dict())
+
+    # Try a different optimizer
+    client_optimizers = [optim.SGD(client.parameters(), lr=0.1) for client in clients]
+
+    for round in range(num_rounds):
+        
+
 
 
 
