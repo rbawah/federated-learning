@@ -20,7 +20,7 @@ class GlobalModel(torch.nn.Module):
         data = self.conv1(data)
         data = F.relu(data)
         data = self.conv2(data)
-        data = F.relu(x)
+        data = F.relu(data)
         data = self.conv3(data)
         data = F.relu(data)
         data = torch.flatten(data, 1)
