@@ -5,7 +5,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 import numpy as np
-import tqdm as tqdm
+# import tqdm as tqdm
 
 class GlobalModel(torch.nn.Module):
     def __init__(self):
