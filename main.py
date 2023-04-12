@@ -34,7 +34,7 @@ def main():
 
     train_split = random_split(train_set, [int(train_set.data.shape[0]/num_clients) for i in range(num_clients)])
     train_loader = [DataLoader(data, batch_size=batch_size, shuffle=True) for data in train_split]
-    test_loader = [DataLoader(test_set, batch_size=batch_size, shuffle=True)]
+    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=True)
 
     server = GlobalModel().to(device)
     clients = [GlobalModel().to(device) for i in range(num_selected)]
@@ -53,7 +53,7 @@ def main():
             loss += client_update(clients[ii], client_optimizers[ii], train_loader[client_idx[ii]], epochs=epochs, device=device)
 
         global_aggregate(server, clients)
-        test_loss, test_accuracy = evaluate(server, test_loader)
+        test_loss, test_accuracy = evaluate(server, test_loader, device=device)
 
         print(f'Round {round}')
         print(f'Avg Train Loss {(loss/num_selected):.3f} | Test Loss {test_loss:.3f} | Test Accuracy {test_accuracy:.3f}')
