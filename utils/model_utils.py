@@ -1,6 +1,7 @@
 import torch
 import torch.nn.functional as F
 
+
 # try different loss criterion
 def client_update(client_model, optimizer, train_loader, epochs=5, device=None):
     client_model.train()
